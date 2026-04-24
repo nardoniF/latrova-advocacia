@@ -1,0 +1,109 @@
+:root {
+  --primary: #0c1426;     
+  --accent: #b89553;      
+  --white: #ffffff;
+  --bg-light: #f9f9f9;    
+  --text-dark: #333333;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--text-dark); line-height: 1.6; background-color: var(--white); }
+
+.container { max-width: 1200px; margin: auto; padding: 0 20px; }
+
+/* HEADER */
+.header { 
+    background-color: var(--primary) !important; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+    padding: 10px 0;
+}
+
+.nav { display: flex; justify-content: space-between; align-items: center; }
+.logo-img { height: 120px; width: auto; display: block; }
+
+nav a { 
+    color: var(--white); 
+    margin-left: 35px; 
+    text-decoration: none; 
+    font-size: 20px; 
+    font-weight: 600; 
+    transition: 0.3s; 
+}
+nav a:hover { color: var(--accent); }
+nav a.btn-outline { border: 2px solid var(--accent); padding: 10px 25px; color: var(--accent); border-radius: 4px; }
+
+/* HERO - TÍTULO AJUSTADO PARA O INTERMEDIÁRIO */
+.hero { 
+    height: 75vh; 
+    background: linear-gradient(rgba(12,20,38,0.85), rgba(12,20,38,0.85)), url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80') center/cover; 
+    display: flex; align-items: center; text-align: center; color: white;
+}
+.hero-content { width: 100%; }
+
+.hero h2 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 46px; /* INTERMEDIÁRIO: Nem 52px, nem 36px. */
+    margin-bottom: 20px; 
+    line-height: 1.2;
+}
+.hero p { 
+    font-size: 22px; 
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.btn-hero-outline {
+    display: inline-block;
+    padding: 14px 30px;
+    margin-left: 15px;
+    border: 2px solid var(--accent);
+    color: var(--accent) !important;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+.btn-hero-outline:hover { background: var(--accent); color: var(--white) !important; }
+
+/* SEÇÕES */
+section { padding: 100px 0; scroll-margin-top: 140px; width: 100%; }
+#sobre { background-color: var(--white); }
+#sobre h2 { color: var(--primary); font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 30px; text-align: center;}
+
+#areas.dark { background-color: var(--primary) !important; color: var(--white); }
+#areas h2 { color: var(--white); font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 40px; text-align: center; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+.dark .card { background: #1a2a47; padding: 35px; border-radius: 4px; color: var(--white); transition: 0.3s; }
+.dark .card:hover { transform: translateY(-5px); border-bottom: 4px solid var(--accent); }
+.dark .card h3 { color: var(--accent); margin-bottom: 10px; }
+
+#contato { background-color: var(--bg-light); }
+#contato h2 { color: var(--primary); margin-bottom: 30px;}
+.contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+.contato-info p { margin-bottom: 25px; font-size: 18px; color: var(--text-dark); }
+
+.form-contato input, .form-contato textarea { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+
+.btn { background: var(--accent); color: var(--white); padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; border: none; cursor: pointer; display: inline-block; }
+.w-full { width: 100%; }
+
+.footer { background: #060a13; color: #666; text-align: center; padding: 50px 0; font-size: 13px; }
+.whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+    .nav { flex-direction: column; }
+    .logo-img { height: 80px; }
+    nav { margin-top: 15px; }
+    nav a { margin: 10px; font-size: 16px; }
+    .contato-grid { grid-template-columns: 1fr; }
+    .btn-hero-outline { margin-left: 0; margin-top: 10px; }
+    .hero h2 { font-size: 32px; }
+}
