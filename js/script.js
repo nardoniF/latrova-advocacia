@@ -13,5 +13,19 @@ const revealOnScroll = () => {
   });
 };
 
+// MÁGICA DO REDIRECIONAMENTO DINÂMICO
+const setDynamicRedirect = () => {
+  const nextField = document.getElementById('next-url');
+  if (nextField) {
+    // Pega a URL atual sem os parâmetros de busca (?...) se quiser uma limpeza maior,
+    // ou apenas window.location.href para ser direto.
+    nextField.value = window.location.href;
+  }
+};
+
 window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', revealOnScroll);
+
+window.addEventListener('load', () => {
+  revealOnScroll();      // Dispara as animações iniciais
+  setDynamicRedirect();  // Configura o link de retorno do formulário
+});
