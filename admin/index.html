@@ -48,6 +48,34 @@
       <code>data/content.json</code> no site para publicar para todos os visitantes.
     </p>
 
+    <section class="panel password-panel">
+      <h2>Trocar senha do admin</h2>
+      <p class="panel-hint">Altere o usuário e a senha padrão. Depois baixe o <code>config.js</code> e substitua o arquivo <code>admin/config.js</code> na hospedagem.</p>
+      <form id="password-form" class="password-form" autocomplete="off">
+        <label>Usuário atual
+          <input type="text" id="pass-current-user" required autocomplete="username">
+        </label>
+        <label>Senha atual
+          <input type="password" id="pass-current" required autocomplete="current-password">
+        </label>
+        <div class="row-2">
+          <label>Novo usuário
+            <input type="text" id="pass-new-user" required autocomplete="off">
+          </label>
+          <label>Nova senha
+            <input type="password" id="pass-new" required minlength="6" autocomplete="new-password">
+          </label>
+        </div>
+        <label>Confirmar nova senha
+          <input type="password" id="pass-new-confirm" required minlength="6" autocomplete="new-password">
+        </label>
+        <p id="password-status" class="save-status" aria-live="polite"></p>
+        <div class="password-actions">
+          <button type="submit" class="btn">Salvar nova senha</button>
+        </div>
+      </form>
+    </section>
+
     <form id="content-form" class="admin-form">
       <section class="panel">
         <h2>Geral</h2>

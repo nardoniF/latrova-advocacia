@@ -1,5 +1,6 @@
 const SESSION_KEY = 'latrova_admin_session';
 const CONTENT_STORAGE_KEY = 'latrova_site_content';
+const CREDENTIALS_STORAGE_KEY = 'latrova_admin_credentials';
 const CONTENT_URL = '../data/content.json';
 
 const loginView = document.getElementById('login-view');
@@ -7,6 +8,8 @@ const adminView = document.getElementById('admin-view');
 const loginForm = document.getElementById('login-form');
 const loginError = document.getElementById('login-error');
 const contentForm = document.getElementById('content-form');
+const passwordForm = document.getElementById('password-form');
+const passwordStatus = document.getElementById('password-status');
 const areasEditor = document.getElementById('areas-editor');
 const saveStatus = document.getElementById('save-status');
 
@@ -18,6 +21,43 @@ async function sha256(text) {
   return Array.from(new Uint8Array(hash))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
+}
+
+function loadStoredCredentials() {
+  try {
+    const raw = localStorage.getItem(CREDENTIALS_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function getAuthConfig() {
+  const stored = loadStoredCredentials();
+  const base = window.ADMIN_CONFIG || {};
+  return {
+    user: (stored && stored.user) || base.user || 'admin',
+    passwordHash: (stored && stored.passwordHash) || base.passwordHash || '',
+  };
+}
+
+function downloadConfigJs(user, passwordHash) {
+  const body = `/**
+ * Credenciais do admin.
+ * Gerado pelo painel em Trocar senha.
+ */
+window.ADMIN_CONFIG = {
+  user: ${JSON.stringify(user)},
+  passwordHash: ${JSON.stringify(passwordHash)},
+};
+`;
+  const blob = new Blob([body], { type: 'application/javascript' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'config.js';
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function isLoggedIn() {
@@ -132,6 +172,11 @@ function setStatus(message, isError = false) {
   saveStatus.classList.toggle('error', isError);
 }
 
+function setPasswordStatus(message, isError = false) {
+  passwordStatus.textContent = message;
+  passwordStatus.classList.toggle('error', isError);
+}
+
 function downloadContent(content) {
   const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -155,7 +200,7 @@ loginForm.addEventListener('submit', async (e) => {
   const user = document.getElementById('login-user').value.trim();
   const pass = document.getElementById('login-pass').value;
   const hash = await sha256(pass);
-  const config = window.ADMIN_CONFIG || {};
+  const config = getAuthConfig();
 
   if (user === config.user && hash === config.passwordHash) {
     setLoggedIn(true);
@@ -166,11 +211,54 @@ loginForm.addEventListener('submit', async (e) => {
   }
 });
 
+passwordForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  setPasswordStatus('');
+
+  const currentUser = document.getElementById('pass-current-user').value.trim();
+  const currentPass = document.getElementById('pass-current').value;
+  const newUser = document.getElementById('pass-new-user').value.trim();
+  const newPass = document.getElementById('pass-new').value;
+  const newPassConfirm = document.getElementById('pass-new-confirm').value;
+
+  if (!newUser) {
+    setPasswordStatus('Informe o novo usuário.', true);
+    return;
+  }
+  if (newPass.length < 6) {
+    setPasswordStatus('A nova senha deve ter pelo menos 6 caracteres.', true);
+    return;
+  }
+  if (newPass !== newPassConfirm) {
+    setPasswordStatus('A confirmação da nova senha não confere.', true);
+    return;
+  }
+
+  const config = getAuthConfig();
+  const currentHash = await sha256(currentPass);
+  if (currentUser !== config.user || currentHash !== config.passwordHash) {
+    setPasswordStatus('Usuário ou senha atual incorretos.', true);
+    return;
+  }
+
+  const newHash = await sha256(newPass);
+  localStorage.setItem(
+    CREDENTIALS_STORAGE_KEY,
+    JSON.stringify({ user: newUser, passwordHash: newHash })
+  );
+  downloadConfigJs(newUser, newHash);
+  passwordForm.reset();
+  setPasswordStatus(
+    'Senha alterada. O arquivo config.js foi baixado — substitua admin/config.js na hospedagem.'
+  );
+});
+
 document.getElementById('btn-logout').addEventListener('click', () => {
   setLoggedIn(false);
   showAdmin(false);
   loginForm.reset();
   setStatus('');
+  setPasswordStatus('');
 });
 
 document.getElementById('btn-add-area').addEventListener('click', () => {

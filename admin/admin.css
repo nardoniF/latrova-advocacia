@@ -175,6 +175,27 @@ textarea:focus {
   line-height: 1.5;
 }
 
+.password-panel {
+  margin-bottom: 18px;
+}
+
+.panel-hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin: -4px 0 4px;
+}
+
+.password-form {
+  display: grid;
+  gap: 14px;
+}
+
+.password-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .publish-note code {
   background: rgba(0, 0, 0, 0.06);
   padding: 1px 6px;
