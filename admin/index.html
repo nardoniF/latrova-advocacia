@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Latrova Advocacia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+  <div id="login-view" class="login-wrap">
+    <form id="login-form" class="login-card" autocomplete="on">
+      <p class="brand">Latrova</p>
+      <h1>Área administrativa</h1>
+      <p class="login-hint">Entre com o usuário e senha para editar o conteúdo do site.</p>
+      <label>
+        Usuário
+        <input type="text" id="login-user" name="username" required autocomplete="username">
+      </label>
+      <label>
+        Senha
+        <input type="password" id="login-pass" name="password" required autocomplete="current-password">
+      </label>
+      <p id="login-error" class="error" hidden>Usuário ou senha incorretos.</p>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+  </div>
+
+  <div id="admin-view" class="admin-wrap" hidden>
+    <header class="admin-header">
+      <div>
+        <p class="brand">Latrova</p>
+        <h1>Editar conteúdo do site</h1>
+      </div>
+      <div class="header-actions">
+        <a class="btn-ghost" href="../index.html" target="_blank" rel="noopener">Ver site</a>
+        <button type="button" id="btn-logout" class="btn-ghost">Sair</button>
+      </div>
+    </header>
+
+    <p class="publish-note">
+      Ao salvar, as alterações ficam ativas neste navegador imediatamente.
+      Use <strong>Baixar content.json</strong> e substitua o arquivo
+      <code>data/content.json</code> no site para publicar para todos os visitantes.
+    </p>
+
+    <form id="content-form" class="admin-form">
+      <section class="panel">
+        <h2>Geral</h2>
+        <label>Título da página (aba do navegador)
+          <input type="text" name="meta.title">
+        </label>
+        <label>WhatsApp (somente números, com DDI)
+          <input type="text" name="whatsapp.number" placeholder="5511999999999">
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>Menu</h2>
+        <div class="row-3">
+          <label>Link Sobre
+            <input type="text" name="nav.sobre">
+          </label>
+          <label>Link Áreas
+            <input type="text" name="nav.areas">
+          </label>
+          <label>Link Contato
+            <input type="text" name="nav.contato">
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Hero (capa)</h2>
+        <label>Título
+          <input type="text" name="hero.title">
+        </label>
+        <label>Subtítulo
+          <input type="text" name="hero.subtitle">
+        </label>
+        <div class="row-2">
+          <label>Botão WhatsApp
+            <input type="text" name="hero.whatsappLabel">
+          </label>
+          <label>Botão Agendar
+            <input type="text" name="hero.ctaLabel">
+          </label>
+        </div>
+        <label>URL da imagem de fundo
+          <input type="url" name="hero.backgroundImage">
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>Quem Somos</h2>
+        <label>Título
+          <input type="text" name="about.title">
+        </label>
+        <label>Texto (aceita HTML simples: &lt;strong&gt;, &lt;em&gt;, &lt;br&gt;)
+          <textarea name="about.text" rows="4"></textarea>
+        </label>
+        <label>Citação
+          <textarea name="about.quote" rows="3"></textarea>
+        </label>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Áreas de atuação</h2>
+          <button type="button" id="btn-add-area" class="btn-small">+ Adicionar área</button>
+        </div>
+        <label>Título da seção
+          <input type="text" name="areas.title">
+        </label>
+        <div id="areas-editor"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Contato</h2>
+        <label>Título
+          <input type="text" name="contact.title">
+        </label>
+        <label>Endereço (use Enter para nova linha)
+          <textarea name="contact.address" rows="3"></textarea>
+        </label>
+        <label>Texto do botão WhatsApp
+          <input type="text" name="contact.whatsappLabel">
+        </label>
+        <div class="row-2">
+          <label>Placeholder nome
+            <input type="text" name="contact.formNamePlaceholder">
+          </label>
+          <label>Placeholder e-mail
+            <input type="text" name="contact.formEmailPlaceholder">
+          </label>
+        </div>
+        <label>Placeholder mensagem
+          <input type="text" name="contact.formMessagePlaceholder">
+        </label>
+        <label>Texto do botão enviar
+          <input type="text" name="contact.formSubmitLabel">
+        </label>
+        <div class="row-2">
+          <label>E-mail do formulário
+            <input type="email" name="contact.formEmail">
+          </label>
+          <label>E-mail em cópia (CC)
+            <input type="email" name="contact.formCc">
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Rodapé</h2>
+        <label>Nome do escritório
+          <input type="text" name="footer.company">
+        </label>
+        <label>Texto de copyright
+          <input type="text" name="footer.copyright">
+        </label>
+      </section>
+
+      <div class="sticky-actions">
+        <p id="save-status" class="save-status" aria-live="polite"></p>
+        <button type="button" id="btn-reset" class="btn-ghost">Restaurar padrão</button>
+        <button type="button" id="btn-download" class="btn-outline">Baixar content.json</button>
+        <button type="submit" class="btn">Salvar alterações</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+
+</html>
