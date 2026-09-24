@@ -21,20 +21,20 @@
                 <img src="css/logo-latrova.png" alt="Latrova Advocacia" class="logo-img">
             </a>
             <nav>
-                <a href="#sobre">Quem Somos</a>
-                <a href="#areas">Áreas</a>
-                <a href="#contato" class="btn-outline">Contato</a>
+                <a href="#sobre" data-content="nav.sobre">Quem Somos</a>
+                <a href="#areas" data-content="nav.areas">Áreas</a>
+                <a href="#contato" class="btn-outline" data-content="nav.contato">Contato</a>
             </nav>
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="container hero-content">
-            <h2 class="reveal">Soluções Jurídicas com Experiência, Estratégia e Resultado</h2>
-            <p class="reveal">Atendimento completo, estratégico e focado em resultados reais.</p>
+            <h2 class="reveal" data-content="hero.title">Soluções Jurídicas com Experiência, Estratégia e Resultado</h2>
+            <p class="reveal" data-content="hero.subtitle">Atendimento completo, estratégico e focado em resultados reais.</p>
             <div class="reveal hero-buttons" style="margin-top: 30px;">
-                <a class="btn" href="https://wa.me/5511965024529" target="_blank">WhatsApp</a>
-                <a class="btn-hero-outline" href="#contato">Agendar Consulta</a>
+                <a class="btn" href="https://wa.me/5511965024529" target="_blank" data-content="hero.whatsappLabel" data-whatsapp-link>WhatsApp</a>
+                <a class="btn-hero-outline" href="#contato" data-content="hero.ctaLabel">Agendar Consulta</a>
             </div>
         </div>
     </section>
@@ -42,12 +42,13 @@
     <section id="sobre" class="section reveal">
         <div class="container">
             <div style="max-width: 800px; margin: auto; text-align: center;">
-                <h2>Dra. Adriana Latrova</h2>
-                <p>Com mais de <strong>10 anos de atuação</strong>, o escritório Latrova Sociedade Individual oferece um
+                <h2 data-content="about.title">Dra. Adriana Latrova</h2>
+                <p data-content-html="about.text">Com mais de <strong>10 anos de atuação</strong>, o escritório Latrova Sociedade Individual oferece um
                     atendimento jurídico assertivo e estratégico, especializado na defesa de <strong>ex-funcionários de
                         bancos</strong>.</p>
                 <p class="quote"
-                    style="border-left: 4px solid var(--accent); padding-left: 20px; margin-top: 30px; font-style: italic; text-align: left; color: #555;">
+                    style="border-left: 4px solid var(--accent); padding-left: 20px; margin-top: 30px; font-style: italic; text-align: left; color: #555;"
+                    data-content="about.quote">
                     "Você terá ao seu lado uma profissional que entende o seu momento e sabe exatamente como agir para
                     garantir seus direitos."</p>
             </div>
@@ -56,8 +57,8 @@
 
     <section id="areas" class="section dark">
         <div class="container">
-            <h2 class="reveal text-center">Especialidades Estratégicas</h2>
-            <div class="grid">
+            <h2 class="reveal text-center" data-content="areas.title">Especialidades Estratégicas</h2>
+            <div class="grid" id="areas-grid">
                 <div class="card reveal">
                     <h3>Direito do Trabalho</h3>
                     <p>Foco em ações de ex-funcionários de bancos.</p>
@@ -89,32 +90,33 @@
     <section id="contato" class="section">
         <div class="container contato-grid">
             <div class="reveal contato-info">
-                <h2>Fale Conosco</h2>
-                <p>Rua Voluntários da Pátria, 2525, cjto 82<br>Santana - São Paulo/SP</p>
-                <a class="btn" href="https://wa.me/5511965024529" target="_blank" style="margin-top:20px">Chamar no
+                <h2 data-content="contact.title">Fale Conosco</h2>
+                <p data-content-multiline="contact.address">Rua Voluntários da Pátria, 2525, cjto 82<br>Santana - São Paulo/SP</p>
+                <a class="btn" href="https://wa.me/5511965024529" target="_blank" style="margin-top:20px" data-content="contact.whatsappLabel" data-whatsapp-link>Chamar no
                     WhatsApp</a>
             </div>
 
-            <form class="reveal form-contato" action="https://formsubmit.co/adriana.latrova@gmail.com" method="POST">
-                <input type="hidden" name="_cc" value="f.nardoni@outlook.com.br">
+            <form class="reveal form-contato" id="contact-form" action="https://formsubmit.co/adriana.latrova@gmail.com" method="POST">
+                <input type="hidden" name="_cc" id="form-cc" value="f.nardoni@outlook.com.br">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_next" id="next-url" value="">
-                <input type="text" name="name" placeholder="Seu Nome" required>
-                <input type="email" name="email" placeholder="Seu E-mail" required>
-                <textarea name="message" rows="4" placeholder="Como podemos ajudar?" required></textarea>
-                <button type="submit" class="btn w-full">Enviar Mensagem</button>
+                <input type="text" name="name" id="form-name" placeholder="Seu Nome" required>
+                <input type="email" name="email" id="form-email" placeholder="Seu E-mail" required>
+                <textarea name="message" rows="4" id="form-message" placeholder="Como podemos ajudar?" required></textarea>
+                <button type="submit" class="btn w-full" data-content="contact.formSubmitLabel">Enviar Mensagem</button>
             </form>
         </div>
     </section>
 
     <footer class="footer">
-        <p><strong>Latrova Sociedade Individual de Advocacia</strong></p>
-        <p>© 2026 - Gestão Técnica: f.nardoni@outlook.com.br</p>
+        <p><strong data-content="footer.company">Latrova Sociedade Individual de Advocacia</strong></p>
+        <p data-content="footer.copyright">© 2026 - Gestão Técnica: f.nardoni@outlook.com.br</p>
     </footer>
 
-    <a href="https://wa.me/5511965024529" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/5511965024529" class="whatsapp-float" target="_blank" data-whatsapp-link>
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="30">
     </a>
+    <script src="js/content.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
